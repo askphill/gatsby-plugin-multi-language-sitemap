@@ -12,14 +12,14 @@ const XMLNS_DECLS = {
     },
 };
 
-export default class SiteMapIndexGenerator {
+export default class SiteMapLanguageGenerator {
     constructor(options) {
         options = options || {};
-        this.languages = options.languages;
+        this.types = options.types;
     }
 
-    getXml(options) {
-        const urlElements = this.generateSiteMapUrlElements(options);
+    getXml(language, options) {
+        const urlElements = this.generateSiteMapUrlElements(options, language);
         const data = {
             // Concat the elements to the _attr declaration
             sitemapindex: [XMLNS_DECLS].concat(urlElements),
@@ -29,22 +29,22 @@ export default class SiteMapIndexGenerator {
         return localUtils.getDeclarations(options) + xml(data);
     }
 
-    generateSiteMapUrlElements({
-        languageSources,
-        siteUrl,
-        pathPrefix,
-        languagesOutput,
-    }) {
-        return _.map(languageSources, (source) => {
-            const filePath = languagesOutput
-                .replace(/:language/, source.name)
+    generateSiteMapUrlElements(
+        { languages, siteUrl, pathPrefix, resourcesOutput },
+        language
+    ) {
+        const sources = languages[language];
+        return _.map(sources, (source) => {
+            const filePath = resourcesOutput
+                .replace(/:language/, language)
+                .replace(/:resource/, source.name)
                 .replace(/^\//, ``);
             const siteMapUrl = source.url
                 ? source.url
                 : url.resolve(siteUrl, path.join(pathPrefix, filePath));
             const lastModified = source.url
                 ? moment(new Date(), moment.ISO_8601).toISOString()
-                : this.languages[source.sitemap].lastModified ||
+                : this.types[source.sitemap].lastModified ||
                   moment(new Date(), moment.ISO_8601).toISOString();
 
             return {
