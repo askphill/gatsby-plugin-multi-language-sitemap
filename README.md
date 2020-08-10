@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # gatsby-plugin-advanced-sitemap
 
 The default Gatsby sitemap plugin generates a simple blob of raw XML for all your pages. This **advanced sitemap plugin** adds more power and configuration, generating a single or multiple sitemaps with full XSL templates to make them neatly organised and human + machine readable, as well linking image resources to encourage media indexing.
@@ -138,3 +139,6 @@ Example output of ☝️ this exact config 👉 https://gatsby.ghost.org/sitemap
 # Copyright & License
 
 Copyright (c) 2013-2020 [Ghost Foundation](https://ghost.org) - Released under the [MIT license](LICENSE).
+=======
+# gatsby-plugin-multi-language-sitemap
+>>>>>>> b4b45cde0c10c1bcd00e583a09694535e5117c0b
