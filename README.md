@@ -1,10 +1,10 @@
 # gatsby-plugin-multi-language-sitemap
 
-*CONSULT @SSSGORDON WHEN YOU WANT TO USE THIS PLUGIN*
+**Work in progress**
 
-## How to Use
+*Consult sssgordon when you want to use this plugin*
 
-**Example:**
+## Example
 
 ```javascript
 // gatsby-config.js
