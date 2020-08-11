@@ -93,7 +93,7 @@
                             <thead>
                                 <tr>
                                     <th width="70%">URL (<xsl:value-of select="count(sitemap:urlset/sitemap:url)"/> total)</th>
-                                    <th width="15%">Images</th>
+                                    <!-- <th width="15%">Images</th> -->
                                     <th title="Last Modification Time" width="15%">Last Modified</th>
                                 </tr>
                             </thead>
@@ -110,9 +110,9 @@
                                                 <xsl:value-of select="sitemap:loc"/>
                                             </a>
                                         </td>
-                                        <td>
+                                        <!-- <td>
                                             <xsl:value-of select="count(image:image)"/>
-                                        </td>
+                                        </td> -->
                                         <td>
                                             <xsl:value-of select="concat(substring(sitemap:lastmod,0,11),concat(' ', substring(sitemap:lastmod,12,5)))"/>
                                         </td>
