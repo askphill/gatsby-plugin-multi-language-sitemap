@@ -1,44 +1,8 @@
-<<<<<<< HEAD
-# gatsby-plugin-advanced-sitemap
+# gatsby-plugin-multi-language-sitemap
 
-The default Gatsby sitemap plugin generates a simple blob of raw XML for all your pages. This **advanced sitemap plugin** adds more power and configuration, generating a single or multiple sitemaps with full XSL templates to make them neatly organised and human + machine readable, as well linking image resources to encourage media indexing.
-
-**Demo:** https://gatsby.ghost.org/sitemap.xml
-
-
-&nbsp;
-
-![example](https://user-images.githubusercontent.com/120485/53555088-d27a0280-3b73-11e9-88ca-fb4ec08d9d26.png)
-
-_NOTE: This plugin only generates output in `production` mode! To test, run: `gatsby build && gatsby serve`_
-
-&nbsp;
-
-
-## Install
-
-`npm install --save gatsby-plugin-advanced-sitemap`
+*CONSULT @SSSGORDON WHEN YOU WANT TO USE THIS PLUGIN*
 
 ## How to Use
-
-By default this plugin will generate a single sitemap of all pages on your site, without any configuration needed.
-
-```javascript
-// gatsby-config.js
-
-siteMetadata: {
-    siteUrl: `https://www.example.com`,
-},
-plugins: [
-    `gatsby-plugin-advanced-sitemap`
-]
-```
-
-&nbsp;
-
-## Options
-
-If you want to generate advanced, individually organised sitemaps based on your data, you can do so by passing in a query and config. The example below uses [Ghost](https://ghost.org), but this should work with any data source - including Pages, Markdown, Contentful, etc.
 
 **Example:**
 
@@ -47,98 +11,299 @@ If you want to generate advanced, individually organised sitemaps based on your 
 
 plugins: [
     {
-        resolve: `gatsby-plugin-advanced-sitemap`,
+        resolve: `gatsby-plugin-multi-language-sitemap`,
         options: {
-             // 1 query for each data type
             query: `
-            {
-                allGhostPost {
-                    edges {
-                        node {
-                            id
-                            slug
-                            updated_at
-                            feature_image
-                        }
-                    }
+          {
+              allContentfulProduct {
+                edges {
+                  node {
+                    id
+                    slug
+                    node_locale
+                  }
                 }
-                allGhostPage {
-                    edges {
-                        node {
-                            id
-                            slug
-                            updated_at
-                            feature_image
-                        }
-                    }
+              }
+              allContentfulCollection {
+                edges {
+                  node {
+                    id
+                    slug
+                    node_locale
+                  }
                 }
-                allGhostTag {
-                    edges {
-                        node {
-                            id
-                            slug
-                            feature_image
-                        }
-                    }
+              }
+              allContentfulBlogPost {
+                edges {
+                  node {
+                    id
+                    slug
+                    node_locale
+                  }
                 }
-                allGhostAuthor {
-                    edges {
-                        node {
-                            id
-                            slug
-                            profile_image
-                        }
+              }
+              allContentfulPage {
+                edges {
+                  node {
+                    id
+                    slug
+                    node_locale
+                    layoutType {
+                      noIndex
                     }
+                  }
                 }
-            }`,
-            mapping: {
-                // Each data type can be mapped to a predefined sitemap
-                // Routes can be grouped in one of: posts, tags, authors, pages, or a custom name
-                // The default sitemap - if none is passed - will be pages
-                allGhostPost: {
-                    sitemap: `posts`,
-                },
-                allGhostTag: {
-                    sitemap: `tags`,
-                },
-                allGhostAuthor: {
-                    sitemap: `authors`,
-                },
-                allGhostPage: {
-                    sitemap: `pages`,
-                },
+              }
+              allContentfulTechnologyPage {
+                edges {
+                  node {
+                    id
+                    slug
+                    node_locale
+                  }
+                }
+              }
+              allContentfulFaqPage {
+                edges {
+                  node {
+                    id
+                    slug
+                    node_locale
+                  }
+                }
+              }
+              allContentfulReviewPage {
+                edges {
+                  node {
+                    id
+                    slug
+                    node_locale
+                  }
+                }
+              }
+              allContentfulBlogPage {
+                edges {
+                  node {
+                    id
+                    slug
+                    node_locale
+                  }
+                }
+              }
+              allContentfulStoresPage {
+                edges {
+                  node {
+                    id
+                    slug
+                    node_locale
+                  }
+                }
+              }
+              allContentfulTextPage {
+                edges {
+                  node {
+                    id
+                    slug
+                    node_locale
+                  }
+                }
+              }
+              allContentfulAboutPage {
+                edges {
+                  node {
+                    id
+                    slug
+                    node_locale
+                  }
+                }
+              }
+          }`,
+        mapping: {
+          en: {
+            allContentfulProduct: {
+              sitemap: `products`,
             },
-            exclude: [
-                `/dev-404-page`,
-                `/404`,
-                `/404.html`,
-                `/offline-plugin-app-shell-fallback`,
-                `/my-excluded-page`,
-                /(\/)?hash-\S*/, // you can also pass valid RegExp to exclude internal tags for example
-            ],
-            createLinkInHead: true, // optional: create a link in the `<head>` of your site
-            addUncaughtPages: true, // optional: will fill up pages that are not caught by queries and mapping and list them under `sitemap-pages.xml`
-            additionalSitemaps: [ // optional: add additional sitemaps, which are e. g. generated somewhere else, but need to be indexed for this domain
-                {
-                    name: `my-other-posts`,
-                    url: `/blog/sitemap-posts.xml`,
-                },
-                {
-                    url: `https://example.com/sitemap.xml`,
-                },
-            ],
+            allContentfulCollection: {
+              sitemap: `collections`,
+            },
+            allContentfulBlogPost: {
+              sitemap: `blogs`,
+            },
+            allContentfulAboutPage: {
+              sitemap: `pages`,
+            },
+            allContentfulTechnologyPage: {
+              sitemap: `pages`,
+            },
+            allContentfulPage: {
+              sitemap: `pages`,
+            },
+            allContentfulFaqPage: {
+              sitemap: `pages`,
+            },
+            allContentfulReviewPage: {
+              sitemap: `pages`,
+            },
+            allContentfulStoresPage: {
+              sitemap: `pages`,
+            },
+            allContentfulTextPage: {
+              sitemap: `pages`,
+            },
+            allContentfulBlogPage: {
+              sitemap: `pages`,
+            },
+          },
+          nl: {
+            allContentfulProduct: {
+              sitemap: `products`,
+            },
+            allContentfulCollection: {
+              sitemap: `collections`,
+            },
+            allContentfulBlogPost: {
+              sitemap: `blogs`,
+            },
+            allContentfulAboutPage: {
+              sitemap: `pages`,
+            },
+            allContentfulTechnologyPage: {
+              sitemap: `pages`,
+            },
+            allContentfulPage: {
+              sitemap: `pages`,
+            },
+            allContentfulFaqPage: {
+              sitemap: `pages`,
+            },
+            allContentfulReviewPage: {
+              sitemap: `pages`,
+            },
+            allContentfulStoresPage: {
+              sitemap: `pages`,
+            },
+            allContentfulTextPage: {
+              sitemap: `pages`,
+            },
+            allContentfulBlogPage: {
+              sitemap: `pages`,
+            },
+          },
+          de: {
+            allContentfulProduct: {
+              sitemap: `products`,
+            },
+            allContentfulCollection: {
+              sitemap: `collections`,
+            },
+            allContentfulBlogPost: {
+              sitemap: `blogs`,
+            },
+            allContentfulAboutPage: {
+              sitemap: `pages`,
+            },
+            allContentfulTechnologyPage: {
+              sitemap: `pages`,
+            },
+            allContentfulPage: {
+              sitemap: `pages`,
+            },
+            allContentfulFaqPage: {
+              sitemap: `pages`,
+            },
+            allContentfulReviewPage: {
+              sitemap: `pages`,
+            },
+            allContentfulStoresPage: {
+              sitemap: `pages`,
+            },
+            allContentfulTextPage: {
+              sitemap: `pages`,
+            },
+            allContentfulBlogPage: {
+              sitemap: `pages`,
+            },
+          },
+          fr: {
+            allContentfulProduct: {
+              sitemap: `products`,
+            },
+            allContentfulCollection: {
+              sitemap: `collections`,
+            },
+            allContentfulBlogPost: {
+              sitemap: `blogs`,
+            },
+            allContentfulAboutPage: {
+              sitemap: `pages`,
+            },
+            allContentfulTechnologyPage: {
+              sitemap: `pages`,
+            },
+            allContentfulPage: {
+              sitemap: `pages`,
+            },
+            allContentfulFaqPage: {
+              sitemap: `pages`,
+            },
+            allContentfulReviewPage: {
+              sitemap: `pages`,
+            },
+            allContentfulStoresPage: {
+              sitemap: `pages`,
+            },
+            allContentfulTextPage: {
+              sitemap: `pages`,
+            },
+            allContentfulBlogPage: {
+              sitemap: `pages`,
+            },
+          },
+          'en-GB': {
+            allContentfulProduct: {
+              sitemap: `products`,
+            },
+            allContentfulCollection: {
+              sitemap: `collections`,
+            },
+            allContentfulBlogPost: {
+              sitemap: `blogs`,
+            },
+            allContentfulAboutPage: {
+              sitemap: `pages`,
+            },
+            allContentfulTechnologyPage: {
+              sitemap: `pages`,
+            },
+            allContentfulPage: {
+              sitemap: `pages`,
+            },
+            allContentfulFaqPage: {
+              sitemap: `pages`,
+            },
+            allContentfulReviewPage: {
+              sitemap: `pages`,
+            },
+            allContentfulStoresPage: {
+              sitemap: `pages`,
+            },
+            allContentfulTextPage: {
+              sitemap: `pages`,
+            },
+            allContentfulBlogPage: {
+              sitemap: `pages`,
+            },
+          },
+        },
+        exclude: [
+          `/dev-404-page`,
+          `/404`,
+          `/404.html`,
+          `/offline-plugin-app-shell-fallback`,
+          `/my-excluded-page`,
+          /(\/)?hash-\S*/, // you can also pass valid RegExp to exclude internal tags for example
+        ],
         }
     }
 ]
 ```
-
-Example output of ☝️ this exact config 👉 https://gatsby.ghost.org/sitemap.xml
-
-&nbsp;
-
-# Copyright & License
-
-Copyright (c) 2013-2020 [Ghost Foundation](https://ghost.org) - Released under the [MIT license](LICENSE).
-=======
-# gatsby-plugin-multi-language-sitemap
->>>>>>> b4b45cde0c10c1bcd00e583a09694535e5117c0b
