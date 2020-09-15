@@ -1,7 +1,8 @@
 import SiteMapIndexGenerator from "./IndexMapGenerator";
 import SiteMapGenerator from "./SiteMapGenerator";
 import SiteMapLanguageGenerator from "./LanguageMapGenerator";
-import _ from "lodash";
+// import _ from "lodash";
+import R from "ramda";
 
 export default class SiteMapManager {
     constructor(options) {
@@ -26,9 +27,11 @@ export default class SiteMapManager {
         }
 
         // ensure, we have a cleaned up array
-        sitemapTypes = _.uniq(sitemapTypes);
+        sitemapTypes = R.uniq(sitemapTypes);
+        // sitemapTypes = _.uniq(sitemapTypes);
 
-        sitemapLanguages = _.uniq(sitemapLanguages);
+        sitemapLanguages = R.uniq(sitemapLanguages);
+        // sitemapLanguages = _.uniq(sitemapLanguages);
 
         for (let language of sitemapLanguages) {
             for (let type of sitemapTypes) {

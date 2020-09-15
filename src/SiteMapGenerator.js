@@ -1,4 +1,5 @@
-import _ from "lodash";
+// import _ from "lodash";
+import R from "ramda";
 import BaseSiteMapGenerator from "./BaseSiteMapGenerator";
 
 export default class SiteMapGenerator extends BaseSiteMapGenerator {
@@ -7,6 +8,7 @@ export default class SiteMapGenerator extends BaseSiteMapGenerator {
 
         this.name = type;
 
-        _.extend(this, opts);
+        R.mergeDeepRight(this, opts);
+        // _.extend(this, opts);
     }
 }

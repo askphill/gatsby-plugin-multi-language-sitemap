@@ -1,4 +1,5 @@
-import _ from "lodash";
+// import _ from "lodash"
+import R from "ramda";
 import xml from "xml";
 import moment from "moment";
 import path from "path";
@@ -25,7 +26,7 @@ export default class BaseSiteMapGenerator {
     generateXmlFromNodes(options) {
         const self = this;
         // Get a mapping of node to timestamp
-        const timedNodes = _.map(
+        const timedNodes = R.map(
             this.nodeLookup,
             function (node, id) {
                 return {
@@ -37,10 +38,24 @@ export default class BaseSiteMapGenerator {
             },
             []
         );
+        // const timedNodes = _.map(
+        //     this.nodeLookup,
+        //     function (node, id) {
+        //         return {
+        //             id: id,
+        //             // Using negative here to sort newest to oldest
+        //             ts: -(self.nodeTimeLookup[id] || 0),
+        //             node: node,
+        //         };
+        //     },
+        //     []
+        // );
         // Sort nodes by timestamp
-        const sortedNodes = _.sortBy(timedNodes, `ts`);
+        const sortedNodes = R.sortBy(timedNodes, `ts`);
+        // const sortedNodes = _.sortBy(timedNodes, `ts`);
         // Grab just the nodes
-        const urlElements = _.map(sortedNodes, `node`);
+        const urlElements = R.map(sortedNodes, `node`);
+        // const urlElements = _.map(sortedNodes, `node`);
         const data = {
             // Concat the elements to the _attr declaration
             urlset: [XMLNS_DECLS].concat(urlElements),

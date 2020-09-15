@@ -5,7 +5,7 @@ var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefau
 exports.__esModule = true;
 exports.default = void 0;
 
-var _lodash = _interopRequireDefault(require("lodash"));
+var _ramda = _interopRequireDefault(require("ramda"));
 
 var _xml = _interopRequireDefault(require("xml"));
 
@@ -15,6 +15,7 @@ var _path = _interopRequireDefault(require("path"));
 
 var _utils = _interopRequireDefault(require("./utils"));
 
+// import _ from "lodash"
 // Sitemap specific xml namespace declarations that should not change
 var XMLNS_DECLS = {
   _attr: {
@@ -37,20 +38,34 @@ var BaseSiteMapGenerator = /*#__PURE__*/function () {
   _proto.generateXmlFromNodes = function generateXmlFromNodes(options) {
     var self = this; // Get a mapping of node to timestamp
 
-    var timedNodes = _lodash.default.map(this.nodeLookup, function (node, id) {
+    var timedNodes = _ramda.default.map(this.nodeLookup, function (node, id) {
       return {
         id: id,
         // Using negative here to sort newest to oldest
         ts: -(self.nodeTimeLookup[id] || 0),
         node: node
       };
-    }, []); // Sort nodes by timestamp
+    }, []); // const timedNodes = _.map(
+    //     this.nodeLookup,
+    //     function (node, id) {
+    //         return {
+    //             id: id,
+    //             // Using negative here to sort newest to oldest
+    //             ts: -(self.nodeTimeLookup[id] || 0),
+    //             node: node,
+    //         };
+    //     },
+    //     []
+    // );
+    // Sort nodes by timestamp
 
 
-    var sortedNodes = _lodash.default.sortBy(timedNodes, "ts"); // Grab just the nodes
+    var sortedNodes = _ramda.default.sortBy(timedNodes, "ts"); // const sortedNodes = _.sortBy(timedNodes, `ts`);
+    // Grab just the nodes
 
 
-    var urlElements = _lodash.default.map(sortedNodes, "node");
+    var urlElements = _ramda.default.map(sortedNodes, "node"); // const urlElements = _.map(sortedNodes, `node`);
+
 
     var data = {
       // Concat the elements to the _attr declaration

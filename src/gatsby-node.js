@@ -1,7 +1,8 @@
 import path from "path";
 import url from "url";
 import fs from "fs-extra";
-import _ from "lodash";
+// import _ from "lodash";
+import R from "ramda";
 
 import defaultOptions from "./defaults";
 import Manager from "./SiteMapManager";
@@ -129,7 +130,8 @@ const addPageNodes = (parsedNodesArray, allSiteNodes, siteUrl) => {
         return foundOne;
     });
 
-    const remainingNodes = _.difference(allSiteNodes, usedNodes);
+    const remainingNodes = R.difference(allSiteNodes, usedNodes);
+    // const remainingNodes = _.difference(allSiteNodes, usedNodes);
 
     remainingNodes.forEach(({ node }) => {
         addedPageNodes.pages.push({
@@ -150,14 +152,21 @@ const serializeLanguageSources = ({ mapping }) => {
         sitemaps.push(language);
     }
 
-    sitemaps = _.map(sitemaps, (source) => {
+    sitemaps = R.map(sitemaps, (source) => {
         return {
             name: source,
             sitemap: source,
         };
     });
+    // sitemaps = _.map(sitemaps, (source) => {
+    //     return {
+    //         name: source,
+    //         sitemap: source,
+    //     };
+    // });
 
-    sitemaps = _.uniqBy(sitemaps, `name`);
+    sitemaps = R.uniqBy(sitemaps, `name`);
+    // sitemaps = _.uniqBy(sitemaps, `name`);
 
     return sitemaps;
 };
@@ -169,14 +178,21 @@ const serializeSources = (language) => {
         sitemaps.push(language[resourceType]);
     }
 
-    sitemaps = _.map(sitemaps, (source) => {
+    sitemaps = R.map(sitemaps, (source) => {
         return {
             name: source.name ? source.name : source.sitemap,
             sitemap: source.sitemap || `pages`,
         };
     });
+    // sitemaps = _.map(sitemaps, (source) => {
+    //     return {
+    //         name: source.name ? source.name : source.sitemap,
+    //         sitemap: source.sitemap || `pages`,
+    //     };
+    // });
 
-    sitemaps = _.uniqBy(sitemaps, `name`);
+    sitemaps = R.uniqBy(sitemaps, `name`);
+    // sitemaps = _.uniqBy(sitemaps, `name`);
     return sitemaps;
 };
 
@@ -206,7 +222,8 @@ const runQuery = (handler, { query, exclude }) =>
             }
         }
 
-        languages = _.uniq(languages);
+        languages = R.uniq(languages);
+        // languages = _.uniq(languages);
 
         languages.forEach((language) => {
             queryResults[language] = {};
@@ -303,8 +320,9 @@ exports.onPostBuild = async ({ graphql, pathPrefix }, pluginOptions) => {
     // Passing the config option addUncaughtPages will add all pages which are not covered by passed mappings
     // to the default `pages` sitemap. Otherwise they will be ignored.
     const options = pluginOptions.addUncaughtPages
-        ? _.merge(defaultOptions, pluginOptions)
-        : Object.assign(defaultOptions, pluginOptions);
+        ? R.mergeDeepRight(defaultOptions, pluginOptions)
+        : // ? _.merge(defaultOptions, pluginOptions)
+          Object.assign(defaultOptions, pluginOptions);
     // PUBLICPATH = `.public`; INDEXFILE = `/sitemap.xml`
     const indexSitemapFile = path.join(PUBLICPATH, pathPrefix, INDEXFILE);
     // RESOURCESFILE = `/sitemap_:resource.xml`
