@@ -1,5 +1,4 @@
-// import _ from "lodash";
-import R from "ramda";
+import _ from "lodash";
 import xml from "xml";
 import moment from "moment";
 import url from "url";
@@ -36,8 +35,7 @@ export default class SiteMapIndexGenerator {
         pathPrefix,
         languagesOutput,
     }) {
-        return R.map(languageSources, (source) => {
-            // return _.map(languageSources, (source) => {
+        return _.map(languageSources, (source) => {
             const filePath = languagesOutput
                 .replace(/:language/, source.name)
                 .replace(/^\//, ``);

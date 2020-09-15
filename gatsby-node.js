@@ -14,7 +14,7 @@ var _url = _interopRequireDefault(require("url"));
 
 var _fsExtra = _interopRequireDefault(require("fs-extra"));
 
-var _ramda = _interopRequireDefault(require("ramda"));
+var _lodash = _interopRequireDefault(require("lodash"));
 
 var _defaults = _interopRequireDefault(require("./defaults"));
 
@@ -160,8 +160,7 @@ var addPageNodes = function addPageNodes(parsedNodesArray, allSiteNodes, siteUrl
     return foundOne;
   });
 
-  var remainingNodes = _ramda.default.difference(allSiteNodes, usedNodes); // const remainingNodes = _.difference(allSiteNodes, usedNodes);
-
+  var remainingNodes = _lodash.default.difference(allSiteNodes, usedNodes);
 
   remainingNodes.forEach(function (_ref4) {
     var node = _ref4.node;
@@ -182,20 +181,13 @@ var serializeLanguageSources = function serializeLanguageSources(_ref5) {
     sitemaps.push(language);
   }
 
-  sitemaps = _ramda.default.map(sitemaps, function (source) {
+  sitemaps = _lodash.default.map(sitemaps, function (source) {
     return {
       name: source,
       sitemap: source
     };
-  }); // sitemaps = _.map(sitemaps, (source) => {
-  //     return {
-  //         name: source,
-  //         sitemap: source,
-  //     };
-  // });
-
-  sitemaps = _ramda.default.uniqBy(sitemaps, "name"); // sitemaps = _.uniqBy(sitemaps, `name`);
-
+  });
+  sitemaps = _lodash.default.uniqBy(sitemaps, "name");
   return sitemaps;
 };
 
@@ -206,20 +198,13 @@ var serializeSources = function serializeSources(language) {
     sitemaps.push(language[resourceType]);
   }
 
-  sitemaps = _ramda.default.map(sitemaps, function (source) {
+  sitemaps = _lodash.default.map(sitemaps, function (source) {
     return {
       name: source.name ? source.name : source.sitemap,
       sitemap: source.sitemap || "pages"
     };
-  }); // sitemaps = _.map(sitemaps, (source) => {
-  //     return {
-  //         name: source.name ? source.name : source.sitemap,
-  //         sitemap: source.sitemap || `pages`,
-  //     };
-  // });
-
-  sitemaps = _ramda.default.uniqBy(sitemaps, "name"); // sitemaps = _.uniqBy(sitemaps, `name`);
-
+  });
+  sitemaps = _lodash.default.uniqBy(sitemaps, "name");
   return sitemaps;
 };
 
@@ -259,8 +244,7 @@ var runQuery = function runQuery(handler, _ref7) {
       }
     }
 
-    languages = _ramda.default.uniq(languages); // languages = _.uniq(languages);
-
+    languages = _lodash.default.uniq(languages);
     languages.forEach(function (language) {
       queryResults[language] = {};
 
@@ -361,8 +345,7 @@ exports.onPostBuild = /*#__PURE__*/function () {
             graphql = _ref12.graphql, pathPrefix = _ref12.pathPrefix;
             // Passing the config option addUncaughtPages will add all pages which are not covered by passed mappings
             // to the default `pages` sitemap. Otherwise they will be ignored.
-            options = pluginOptions.addUncaughtPages ? _ramda.default.mergeDeepRight(_defaults.default, pluginOptions) : // ? _.merge(defaultOptions, pluginOptions)
-            Object.assign(_defaults.default, pluginOptions); // PUBLICPATH = `.public`; INDEXFILE = `/sitemap.xml`
+            options = pluginOptions.addUncaughtPages ? _lodash.default.merge(_defaults.default, pluginOptions) : Object.assign(_defaults.default, pluginOptions); // PUBLICPATH = `.public`; INDEXFILE = `/sitemap.xml`
 
             indexSitemapFile = _path.default.join(PUBLICPATH, pathPrefix, INDEXFILE); // RESOURCESFILE = `/sitemap_:resource.xml`
 

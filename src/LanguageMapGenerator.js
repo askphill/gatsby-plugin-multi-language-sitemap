@@ -1,5 +1,4 @@
-// import _ from "lodash";
-import R from "ramda";
+import _ from "lodash";
 import xml from "xml";
 import moment from "moment";
 import url from "url";
@@ -35,8 +34,7 @@ export default class SiteMapLanguageGenerator {
         language
     ) {
         const sources = languages[language];
-        return R.map(sources, (source) => {
-            // return _.map(sources, (source) => {
+        return _.map(sources, (source) => {
             const filePath = resourcesOutput
                 .replace(/:language/, language)
                 .replace(/:resource/, source.name)

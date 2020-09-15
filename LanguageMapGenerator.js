@@ -5,7 +5,7 @@ var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefau
 exports.__esModule = true;
 exports.default = void 0;
 
-var _ramda = _interopRequireDefault(require("ramda"));
+var _lodash = _interopRequireDefault(require("lodash"));
 
 var _xml = _interopRequireDefault(require("xml"));
 
@@ -17,7 +17,6 @@ var _path = _interopRequireDefault(require("path"));
 
 var _utils = _interopRequireDefault(require("./utils"));
 
-// import _ from "lodash";
 var XMLNS_DECLS = {
   _attr: {
     xmlns: "http://www.sitemaps.org/schemas/sitemap/0.9"
@@ -50,8 +49,7 @@ var SiteMapLanguageGenerator = /*#__PURE__*/function () {
         pathPrefix = _ref.pathPrefix,
         resourcesOutput = _ref.resourcesOutput;
     var sources = languages[language];
-    return _ramda.default.map(sources, function (source) {
-      // return _.map(sources, (source) => {
+    return _lodash.default.map(sources, function (source) {
       var filePath = resourcesOutput.replace(/:language/, language).replace(/:resource/, source.name).replace(/^\//, "");
       var siteMapUrl = source.url ? source.url : _url.default.resolve(siteUrl, _path.default.join(pathPrefix, filePath));
       var lastModified = source.url ? (0, _moment.default)(new Date(), _moment.default.ISO_8601).toISOString() : _this.types[source.sitemap].lastModified || (0, _moment.default)(new Date(), _moment.default.ISO_8601).toISOString();
