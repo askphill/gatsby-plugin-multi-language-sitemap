@@ -4,7 +4,9 @@
 
 *Consult sssgordon when you want to use this plugin*
 
-## Example
+Instructions: Copy the root directory files and paste it in a directory nested inside your "plugins" directory.
+
+## Example Plugin Configuration
 
 ```javascript
 // gatsby-config.js
